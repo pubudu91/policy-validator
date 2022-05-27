@@ -1,0 +1,6 @@
+[plugin]
+id = "policy_validator"
+class = "dev.choreo.policyvalidator.ValidatorCompilerPlugin"
+
+[[dependency]]
+path = "../validator-plugin/target/validator-plugin-1.0.0-SNAPSHOT.jar"
