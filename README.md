@@ -28,6 +28,14 @@ The plugin will validate the following:
 - Parameter signature of the function
 
 ## Build
+- Add an entry for GitHub packages in the servers section in your Maven `settings.xml` file.
+```xml
+<server>
+  <id>github-packages</id>
+  <username><!--<GitHub username>--></username>
+  <password><!--GitHub Personal Access Token --></password>
+</server> 
+```
 - Run `mvn clean install` from the project root
 - [_Temporary step_] Then, navigate to the `validator-ballerina` directory and run `bal pack` to generate the `bala` file and then run `bal push --repository=local` to publish the package to the Ballerina local repository.
 
