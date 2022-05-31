@@ -25,7 +25,6 @@ public class ValidatorCodeAnalyzer extends CodeAnalyzer {
 
     @Override
     public void init(CodeAnalysisContext codeAnalysisContext) {
-        codeAnalysisContext.addCompilationAnalysisTask(
-                compilationAnalysisContext -> System.out.println("HELLO WORLD!"));
+        codeAnalysisContext.addCompilationAnalysisTask(new ValidationTask());
     }
 }
