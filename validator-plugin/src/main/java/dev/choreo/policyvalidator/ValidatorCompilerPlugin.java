@@ -18,6 +18,10 @@
 
 package dev.choreo.policyvalidator;
 
+import io.ballerina.projects.plugins.CodeAnalysisContext;
+import io.ballerina.projects.plugins.CodeAnalyzer;
+import io.ballerina.projects.plugins.CodeGenerator;
+import io.ballerina.projects.plugins.CodeGeneratorContext;
 import io.ballerina.projects.plugins.CompilerPlugin;
 import io.ballerina.projects.plugins.CompilerPluginContext;
 
@@ -25,6 +29,17 @@ public class ValidatorCompilerPlugin extends CompilerPlugin {
 
     @Override
     public void init(CompilerPluginContext compilerPluginContext) {
-        compilerPluginContext.addCodeAnalyzer(new ValidatorCodeAnalyzer());
+        compilerPluginContext.addCodeAnalyzer(new CodeAnalyzer() {
+            @Override
+            public void init(CodeAnalysisContext codeAnalysisContext) {
+                codeAnalysisContext.addCompilationAnalysisTask(new ValidationTask());
+            }
+        });
+        compilerPluginContext.addCodeGenerator(new CodeGenerator() {
+            @Override
+            public void init(CodeGeneratorContext codeGeneratorContext) {
+                codeGeneratorContext.addSourceGeneratorTask(new MetaDataGenTask());
+            }
+        });
     }
 }

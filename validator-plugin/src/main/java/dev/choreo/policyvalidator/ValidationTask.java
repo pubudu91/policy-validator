@@ -60,11 +60,11 @@ public class ValidationTask implements AnalysisTask<CompilationAnalysisContext> 
                         continue;
                     }
 
-                    if (policyFound) {
-                        ctx.reportDiagnostic(DiagnosticFactory.createDiagnostic(
-                                new DiagnosticInfo("GWPOLICY002", "there can only be one policy per package",
-                                                   DiagnosticSeverity.ERROR), func.getLocation().get()));
-                    }
+                    // if (policyFound) {
+                    //     ctx.reportDiagnostic(DiagnosticFactory.createDiagnostic(
+                    //             new DiagnosticInfo("GWPOLICY002", "there can only be one policy per package",
+                    //                                DiagnosticSeverity.ERROR), func.getLocation().get()));
+                    // }
 
                     if (!func.qualifiers().contains(Qualifier.PUBLIC)) {
                         ctx.reportDiagnostic(DiagnosticFactory.createDiagnostic(
