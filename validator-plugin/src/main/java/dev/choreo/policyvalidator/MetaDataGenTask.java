@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 
 public class MetaDataGenTask implements GeneratorTask<SourceGeneratorContext> {
 
-    private static final String BUILTIN_POLICY_ORG = "choreo";
+    private static final String BUILTIN_POLICY_ORG = "pubudu";
     private static final String POLICY_VALIDATOR_PKG = "policy_validator";
     private static final String POLICY_IN_FLOW_ANNOT = "InFlow";
     private static final String POLICY_OUT_FLOW_ANNOT = "OutFlow";
@@ -47,6 +47,7 @@ public class MetaDataGenTask implements GeneratorTask<SourceGeneratorContext> {
 
     @Override
     public void generate(SourceGeneratorContext sourceGeneratorContext) {
+        System.out.println("Generating 'policy-meta.json' file...");
         JsonObject policyMeta = new JsonObject();
         SemanticModel model =
                 sourceGeneratorContext.currentPackage().getDefaultModule().getCompilation()
