@@ -5,7 +5,7 @@
     <parent>
         <groupId>dev.choreo.policy-validator</groupId>
         <artifactId>policy-validator</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>0.0.4-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -51,7 +51,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <ballerina.version>2201.0.3</ballerina.version>
+        <ballerina.version>2201.1.0</ballerina.version>
     </properties>
 
 </project>
