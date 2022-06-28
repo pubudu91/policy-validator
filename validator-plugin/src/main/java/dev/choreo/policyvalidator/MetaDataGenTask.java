@@ -21,6 +21,7 @@ package dev.choreo.policyvalidator;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import io.ballerina.compiler.api.ModuleID;
 import io.ballerina.compiler.api.SemanticModel;
 import io.ballerina.compiler.api.symbols.AnnotationSymbol;
@@ -101,13 +102,18 @@ public class MetaDataGenTask implements GeneratorTask<SourceGeneratorContext> {
         JsonObject param = new JsonObject();
         param.addProperty("name", paramSymbol.getName().get());
         param.add("type", generateTypeMeta(paramSymbol.typeDescriptor()));
+        param.add("isConfigurable", new JsonPrimitive(isConfigurable(paramSymbol.annotations())));
         return param;
     }
 
     private JsonObject generateTypeMeta(TypeSymbol typeSymbol) {
         JsonObject type = new JsonObject();
-        type.addProperty("name", typeSymbol.getName().get());
+        type.addProperty("name", typeSymbol.getName().orElse(typeSymbol.signature()));
         type.addProperty("kind", typeSymbol.typeKind().toString());
+
+        if (typeSymbol.getModule().isEmpty()) {
+            return type;
+        }
 
         ModuleID id = typeSymbol.getModule().get().id();
         JsonObject pkg = new JsonObject();
@@ -126,6 +132,20 @@ public class MetaDataGenTask implements GeneratorTask<SourceGeneratorContext> {
             if (BUILTIN_POLICY_ORG.equals(id.orgName())
                     && POLICY_VALIDATOR_PKG.equals(id.packageName())
                     && policyKind.equals(annot.getName().get())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isConfigurable(List<AnnotationSymbol> annots) {
+        for (AnnotationSymbol annot : annots) {
+            ModuleID id = annot.getModule().get().id();
+
+            if (BUILTIN_POLICY_ORG.equals(id.orgName())
+                    && POLICY_VALIDATOR_PKG.equals(id.packageName())
+                    && "Config".equals(annot.getName().get())) {
                 return true;
             }
         }

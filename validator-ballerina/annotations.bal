@@ -17,3 +17,4 @@
 public const annotation InFlow on source function;
 public const annotation OutFlow on source function;
 public const annotation FaultFlow on source function;
+public const annotation Config on source parameter;
